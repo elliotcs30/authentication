@@ -22,7 +22,7 @@
 
 2. 安裝套件:
 ```shell
-  npm i express@4.17.1 mongoose@6.0.4 nodemon v2.0.19 express-handlebars@4.0.2 method-override@3.0.0 body-parser@1.20.0
+  npm i express@4.17.1 mongoose@6.0.4 nodemon@2.0.19 express-handlebars@4.0.2 method-override@3.0.0 body-parser@1.20.0
 ```
 
 3. 修改資料庫連線設定，本專案是使用 3T:
