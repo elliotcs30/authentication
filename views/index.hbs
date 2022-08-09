@@ -1,1 +1,19 @@
-<h2>Hello world! 這是 index</h2>
+<div class="container login">
+  {{#if user }}
+    <h1>Welcome back, {{ user.firstName }}!</h1>
+  {{ else }}
+    <h2 class="title mb-4">Account Login</h2>
+    <form action="/" method="POST">
+      <input type="email" class="input-group mb-4" name="email" id="email" placeholder="Email">
+      <input type="password" class="input-group mb-4" name="password" id="password" placeholder="Password">
+      <div class="col text-center">
+        <button type="submit" class="btn btn-outline-dark">Sign in</button>
+      </div>
+    </form>
+    {{#if error}}
+      <div class="error-message">{{ error }}</div>
+    {{/if}}
+  {{/if}}
+</div>
+
+
