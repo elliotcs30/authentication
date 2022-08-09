@@ -1,7 +1,9 @@
 // 載入 express 並建構應用程式伺服器
 const express = require('express')
 const mongoose = require('mongoose') // 載入 mongoose
-const exphbs = require('express-handlebars');
+const exphbs = require('express-handlebars')
+const bodyParser = require('body-parser') // 引用 body-parser
+const User = require('./models/user')
 
 const app = express()
 const PORT = 3000
@@ -21,10 +23,31 @@ db.once('open', () => {
 
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
+// 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
+app.use(bodyParser.urlencoded({ extended: true }))
+// 設定靜態檔案
+app.use(express.static('public'))
 
 // 設定首頁路由
 app.get('/', (req, res) => {
   res.render('index')
+})
+
+app.post('/', (req, res) => {
+  const email = req.body.email
+  const password = req.body.password
+
+  return User.findOne({ 
+    email: email, 
+    password: password
+  }).lean()
+    .then(user => {
+      if (!user) {
+        return res.render('index', { error: '輸入電子郵件或密碼錯誤' })
+      }
+      res.render('index', { user })
+    })
+    .catch(err => { console.log(err) })
 })
 
 // 設定 port 3000
