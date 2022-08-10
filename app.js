@@ -4,6 +4,9 @@ const mongoose = require('mongoose') // 載入 mongoose
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser') // 引用 body-parser
 const User = require('./models/user')
+const LocalStorage = require('node-localstorage').LocalStorage
+
+localStorage = new LocalStorage('./scratch');
 
 const app = express()
 const PORT = 3000
@@ -30,7 +33,14 @@ app.use(express.static('public'))
 
 // 設定首頁路由
 app.get('/', (req, res) => {
-  res.render('index')
+  // 先到 localStorage 抓看看是否已經有登入名稱
+  const user = localStorage.getItem('user')
+
+  if (user) {
+    res.render('index', { user })
+  } else {
+    res.render('index')
+  }
 })
 
 app.post('/', (req, res) => {
@@ -45,7 +55,10 @@ app.post('/', (req, res) => {
       if (!user) {
         return res.render('index', { error: '輸入電子郵件或密碼錯誤' })
       }
-      res.render('index', { user })
+
+      // 將已登入的使用者名稱記錄在 localStorage
+      localStorage.setItem('user', user.firstName);
+      res.render('index', { user: user.firstName })
     })
     .catch(err => { console.log(err) })
 })

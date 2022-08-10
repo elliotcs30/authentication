@@ -16,6 +16,7 @@
 * express-handlebars v4.0.2
 * method-override v3.0.0
 * body-parser v1.20.0
+* node-localstorage
 
 ## 執行專案
 1. 將本專案clone進本地端
@@ -23,6 +24,8 @@
 2. 安裝套件:
 ```shell
   npm i express@4.17.1 mongoose@6.0.4 nodemon@2.0.19 express-handlebars@4.0.2 method-override@3.0.0 body-parser@1.20.0
+
+  npm install node-localstorage
 ```
 
 3. 修改資料庫連線設定，本專案是使用 3T:
@@ -47,6 +50,6 @@
 
 7. 終端機起動成功會顯示以下訊息:
 ```shell
-  App is running on http://localhost:3000
-mongodb connected!
+  App is running on http://localhost:3000 
+  mongodb connected!
 ```
